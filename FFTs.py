@@ -678,7 +678,7 @@ def spectralMethod(init, t, samples=1, plot_type=1, eq=0):
 
 
 
-def fftAnimation(init, t, samples, analytic=0):
+def fftAnimation(init, t, samples, analytic=0, eq=0):
     global fig
     global ax
     global result_plt
@@ -688,7 +688,7 @@ def fftAnimation(init, t, samples, analytic=0):
 
     fig, ax = plt.subplots()
     
-    outcome = spectralMethod(init, t, samples, 0)
+    outcome = spectralMethod(init, t, samples, 0, eq=eq)
     results = outcome[0]
     results2 = outcome[1]
     N = len(results)
@@ -718,10 +718,13 @@ def fftAnimation(init, t, samples, analytic=0):
             
             return(ani)
 
-    ani = animation.FuncAnimation(fig=fig, func=update, frames=samples, interval=50)
+    ani = animation.FuncAnimation(fig=fig, func=update, frames=samples, interval=1)
     #plt.ylim(-1.25, 1.25)
-    plt.ylim(0, 1)
-    #ani.save('animation.gif') 
+    #plt.ylim(0, 1)
+    #plt.xlim(0, 1)
+    #plt.ylim(-0.05, 2.1)
+    plt.ylim(-5, 20)
+    #ani.save('anim kdv-.gif') 
     return(ani)
 
 
@@ -906,58 +909,70 @@ def fftAnimation(init, t, samples, analytic=0):
 
 # FIGURE 8
 
-points = 1000
-np.set_printoptions(precision=32)
+#points = 1000
+#np.set_printoptions(precision=32)
 
-wave = 1 + sin(np.linspace(0, 1 + 1/points, points) * 10 * pi)
+#wave = 1 + sin(np.linspace(0, 1 + 1/points, points) * 10 * pi)
     
-t = 0.9
-b = 0.18
-l = 0.18
-r = 0.935
+#t = 0.9
+#b = 0.18
+#l = 0.18
+#r = 0.935
 
-plt.rcParams.update({"font.size": 28})
+#plt.rcParams.update({"font.size": 28})
 
-times = np.linspace(0, 1, 5)
+#times = np.linspace(0, 1, 5)
 
-for T in times:
-    plt.figure()
-    spectralMethod(wave, T * 0.1, eq=1)
-    plt.title(f"t = {np.round(T, 2)}",)
-    plt.ylabel("Solution")
-    plt.xlabel("x")
-    plt.xlim(0, 1)
-    plt.ylim(-0.05, 2.1)
-    plt.subplots_adjust(top=t, bottom=b, left=l, right=r, wspace=0.2, hspace=0.2)
+#for T in times:
+#    plt.figure()
+#    spectralMethod(wave, T * 0.1, eq=1)
+#    plt.title(f"t = {np.round(T, 2)}",)
+#    plt.ylabel("Solution")
+#    plt.xlabel("x")
+#    plt.xlim(0, 1)
+#    plt.ylim(-0.05, 2.1)
+#    plt.subplots_adjust(top=t, bottom=b, left=l, right=r, wspace=0.2, hspace=0.2)
 
 
-wave = 1 - (0.5 - np.linspace(0, 1 + 1/points, points))**2 * 3
+#wave = 1 - (0.5 - np.linspace(0, 1 + 1/points, points))**2 * 3
 #wave = (1 + sin(np.linspace(0, 3 * pi + 1/points, points))) / 2
 #wave += 1 / np.cosh(np.linspace(0, 3 * pi + 1/points, points))
 
 
-for T in times:
-    plt.figure()
-    spectralMethod(wave, T * 0.1, eq=1)
-    plt.title(f"t = {np.round(T, 2)}",)
-    plt.ylabel("Solution")
-    plt.xlabel("x")
-    plt.xlim(0, 1)
-    plt.ylim(-0.05, 2.1)
-    plt.subplots_adjust(top=t, bottom=b, left=l, right=r, wspace=0.2, hspace=0.2)
+#for T in times:
+#    plt.figure()
+#    spectralMethod(wave, T * 0.1, eq=1)
+#    plt.title(f"t = {np.round(T, 2)}",)
+#    plt.ylabel("Solution")
+#    plt.xlabel("x")
+#    plt.xlim(0, 1)
+#    plt.ylim(-0.05, 2.1)
+ #   plt.subplots_adjust(top=t, bottom=b, left=l, right=r, wspace=0.2, hspace=0.2)
 
 
-wave =  abs(sin(np.linspace(0, 3 * pi, points)) * 10)
+#wave =  abs(sin(np.linspace(0, 3 * pi, points)) * 10)
 
-for T in times:
-    plt.figure()
-    spectralMethod(wave, T * 0.1, eq=1)
-    plt.title(f"t = {np.round(T, 2)}",)
-    plt.ylabel("Solution")
-    plt.xlabel("x")
-    plt.xlim(0, 1)
-    plt.ylim(-0.35, 12.5)
-    plt.subplots_adjust(top=t, bottom=b, left=l, right=r, wspace=0.2, hspace=0.2)
+#for T in times:
+#    plt.figure()
+#    spectralMethod(wave, T * 0.1, eq=1)
+#    plt.title(f"t = {np.round(T, 2)}",)
+#    plt.ylabel("Solution")
+#    plt.xlabel("x")
+#    plt.xlim(0, 1)
+#    plt.ylim(-0.35, 12.5)
+#    plt.subplots_adjust(top=t, bottom=b, left=l, right=r, wspace=0.2, hspace=0.2)
+
+
+# ANIM 3
+
+#points = 1000
+
+#wave = 1 + sin(np.linspace(0, 1 + 1/points, points) * 10 * pi)
+#wave = 1 - (0.5 - np.linspace(0, 1 + 1/points, points))**2 * 3
+#wave =  abs(sin(np.linspace(0, 3 * pi, points)) * 10)
+
+#fftAnimation(wave, 1, 100, eq=1)
+#fftAnimation(wave, 0.8759374655710950308143, 50, eq=1)
 
 
 #--------------------------------------------------------------------------------------------------------------

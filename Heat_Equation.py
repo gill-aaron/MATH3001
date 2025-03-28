@@ -21,10 +21,10 @@ plt.rcParams.update({"lines.linewidth": 2})
 
 K = 1
 L = 1
-N_init = 15
-C_init = 0.2
+N_init = 30
+C_init = 0.3
 
-end_time = 0.1 #1/16 #3
+end_time = 1 #1/16 #3
 
 #h_x = L / (N - 1)
 #h_t = C * h_x**2 / K
@@ -46,8 +46,8 @@ def getPoints(N, min_point=0):
 def f(x, N, endpoint = 0):
     x_val = x * 1
     for i in range(1, N-1):
-        #x_val[i] = sin(1 * pi * x_val[i] / L)
-        x_val[i] = abs(sin(1 * pi * x_val[i] / L))
+        x_val[i] = sin(1 * pi * x_val[i] / L)
+        #x_val[i] = abs(sin(2 * pi * x_val[i] / L))**4
 
     x_val[0] = 0
     x_val[-1] = endpoint
@@ -265,7 +265,7 @@ def compareMultiError(Nmin, Nmax, N_delta, Cmin, Cmax, C_delta, end_time, method
 
 # NUMERICAL METHOD FUNCTIONS
 
-def FTCS(N, C, end_time, endpoint=0, plot_type=1, eq=0, col=(-1,-1,-1)):
+def FTCS(N, C, end_time, endpoint=0, plot_type=1, eq=0, col=(-1,-1,-1), equation=0):
     points = getPoints(N)
     s_current = f(points, N, endpoint)
     s_next = s_current * 1
@@ -495,6 +495,8 @@ def crankNicolson(N, C, end_time, endpoint=0, plot_type=1, equation=0, mu=0.3):
                 
         # Reaction-diffusion  
         if equation == 1:
+            #mu = 0.4
+            #mu = 0.1
             s_next += 300 * h_t * s_current * (1 - s_current) * (s_current - mu)
             #s_next += 0.5 * (s_current * (1 - s_current) * (s_current - mu) + s_next * (1 - s_next) * (s_next - mu))
         
@@ -602,8 +604,8 @@ def solverAnimation(N, C, end_time, method, analytic=0, endpoint=0, eq=0):
         
     h_x = L / (N - 1)
     h_t = C * h_x**2 / K
-    ani = animation.FuncAnimation(fig=fig, func=update, frames=int(end_time // h_t), interval=100)
-    #ani.save('animation.gif') 
+    ani = animation.FuncAnimation(fig=fig, func=update, frames=int(end_time // h_t), interval=10)
+    #ani.save('anim rde2.gif') 
     return(ani)
 
 #--------------------------------------------------------------------------------------------------------------
@@ -892,6 +894,16 @@ numerical_method = (FTCS, BTCS, crankNicolson, FTCS2D)
 #plt.subplots_adjust(top=t, bottom=b, left=l, right=r, wspace=0.2, hspace=0.2)
 
 
+# ANIM 1
+
+# Use x_val[i] = abs(sin(2 * pi * x_val[i] / L))**4 for function f.
+# Use mu = 0.4, mu = 0.1.
+
+#solverAnimation(N_init, C_init, end_time, method=2, analytic=0, eq=1)
+
+
+
+
 #--------------------------------------------------------------------------------------------------------------
 
 
@@ -901,7 +913,7 @@ numerical_method = (FTCS, BTCS, crankNicolson, FTCS2D)
 #analyticSolution(N_init, C_init, end_time, 1)
 #FTCS(N_init, C_init, end_time, 0, 1)
 #BTCS(N_init, C_init, end_time, 0, 2)
-crankNicolson(N_init, C_init, end_time, 0, 1)
+#crankNicolson(N_init, C_init, end_time, 0, 1)
 
 #findError(N_init, C_init, end_time, method=2)
 #findMultiError(N_init, N_init * 5, 1, C_init, 5, 0.1, end_time, 2, plot=2)

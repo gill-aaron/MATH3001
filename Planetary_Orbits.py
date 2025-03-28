@@ -25,12 +25,12 @@ np.set_printoptions(precision=16)
 # (modifying these is the easiest way to test different orbits)
 # Note that e should always be a float
 
-e = 0.15 #0.15
+e = 0 #0.15
 a = 1
 b = a * sqrt(1 - e**2)
 GM = 1
 P = 2 * pi * sqrt(a**3 / GM)
-h_initial = P / 20  #P / 200 #15
+h_initial = P / 15  #P / 200 #15
 
 orbits = 34
 
@@ -1670,9 +1670,9 @@ def orbitAnimation(system, method, h=h_initial, tr=False):
                         
         return(ani)
 
-    ani = animation.FuncAnimation(fig=fig, func=update, frames=(orbits * round(1 + P / h_initial)), interval=0.01)
+    ani = animation.FuncAnimation(fig=fig, func=update, frames=(orbits * round(1 + P / h_initial)), interval=10)
     
-    #ani.save('timerev.gif') 
+    #ani.save('anim -.gif')  
     return(ani)
 
 
@@ -1901,9 +1901,9 @@ def orbitAnimation(system, method, h=h_initial, tr=False):
 
 
 # ANIM 1
-colours[-1] = "green"
-colours_alt = ["cyan", "brown", "purple", "cyan"]
-orbitAnimation(p1b, 1, h_initial)
+#colours[-1] = "c"
+#colours_alt = ["cyan", "brown", "purple", "blue"]
+#orbitAnimation(jupiter, 4, h_initial)
 
 
 #--------------------------------------------------------------------------------------------------------------
